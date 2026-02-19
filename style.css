@@ -591,4 +591,153 @@ nav {
 /* Responsive */
 @media (max-width: 900px) {
     .contact-grid { grid-template-columns: 1fr; }
+
+}
+/* ============================================================
+   MOBILE RESPONSIVE OPTIMIZATION (Screens under 768px)
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* 1. Reset Global untuk Mobile */
+    header, .hero, .vision-mission, .commodities, .market-coverage, .why-us, .contact-us {
+        padding: 40px 5% !important; /* Kurangi padding samping agar konten lebih luas */
+    }
+
+    /* 2. Header & Logo Optimization */
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo-main {
+        font-size: 1.1rem;
+    }
+
+    .nav-links {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+    }
+
+    /* 3. Hero Section Adjustment */
+    .hero {
+        text-align: center;
+        min-height: auto;
+        padding-top: 120px !important;
+        background-position: 70% center; /* Geser background agar gambar kapal tetap terlihat */
+    }
+
+    #hero-slider-text {
+        font-size: 2rem !important; /* Kecilkan judul besar agar tidak terpotong */
+        line-height: 1.2;
+    }
+
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* 4. Stats Bar (Menjadi 1 atau 2 kolom) */
+    .stats-bar {
+        flex-direction: column;
+        margin-top: 30px;
+        padding: 20px;
+    }
+
+    .stat-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 15px 0;
+    }
+
+    .stat-item:last-child { border-bottom: none; }
+
+    /* 5. Vision & Mission (1 Kolom Sesuai Permintaan) */
+    .vision-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .vm-icon-large {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+
+    .mission-row {
+        grid-template-columns: 1fr !important; /* Paksa jadi 1 kolom di HP */
+    }
+
+    .mission-title-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* 6. Commodities Grid */
+    .grid-container {
+        grid-template-columns: 1fr !important; /* 1 kolom penuh */
+    }
+
+    .card.large {
+        grid-column: span 1;
+        height: 200px;
+    }
+
+    /* 7. Market Coverage */
+    .market-coverage {
+        background-position: center;
+    }
+
+    .market-cards-row {
+        flex-direction: column;
+    }
+
+    .m-card {
+        min-width: 100%;
+    }
+
+    /* 8. Why Choose Us (Grid 2x2) */
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    /* 9. Contact Us */
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Tambahan untuk layar sangat kecil (iPhone SE/Fold) */
+@media (max-width: 480px) {
+    #hero-slider-text {
+        font-size: 1.6rem !important;
+    }
+    
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+}
+3. Perbaikan agar Lebih "Smooth"
+Agar pergerakan saat di-scroll terasa ringan, tambahkan properti ini di bagian paling atas style.css Anda:
+
+CSS
+html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent; /* Hilangkan kotak abu-abu saat klik di HP */
+}
+
+body {
+    overflow-x: hidden; /* Mencegah layar bisa digeser ke samping (putih-putih kosong) */
+}
+
+img {
+    max-width: 100%;
+    height: auto; /* Memastikan semua gambar tidak penyet */
 }
