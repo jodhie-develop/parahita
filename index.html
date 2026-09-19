@@ -29,13 +29,53 @@
             color: #d97706;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+        /* Gallery Carousel */
+        .gallery-carousel {
+            position: relative;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 24px;
         }
+
+        .gallery-viewport {
+            overflow: hidden;
+        }
+
+        .gallery-grid {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-slide {
+            flex: 0 0 calc(100% / var(--per-view, 3));
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #1f2937;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .gallery-arrow:hover {
+            background: #d97706;
+            color: #ffffff;
+        }
+
+        .gallery-arrow.prev { left: 0; }
+        .gallery-arrow.next { right: 0; }
 
         .gallery-item {
             position: relative;
@@ -289,8 +329,14 @@
 <!-- Gallery Section -->
 <section class="gallery-section" id="gallery">
     <h2>OUR <span>GALLERY</span></h2>
-    <div class="gallery-grid" id="gallery-container">
-        <!-- Dynamic images loaded via JS -->
+    <div class="gallery-carousel" id="gallery-carousel">
+        <button class="gallery-arrow prev" id="gallery-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
+        <div class="gallery-viewport" id="gallery-viewport">
+            <div class="gallery-grid" id="gallery-container">
+                <!-- Dynamic images loaded via JS -->
+            </div>
+        </div>
+        <button class="gallery-arrow next" id="gallery-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
     </div>
 </section>
 
@@ -368,18 +414,23 @@
         
         img.onload = function() {
             // Jika file gambar ditemukan/berhasil dimuat
+            const slide = document.createElement('div');
+            slide.className = 'gallery-slide';
+
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
             galleryItem.onclick = () => openLightbox(imagePath, `Photo #${index}`);
-            
+
             galleryItem.innerHTML = `
-                <img src="${imagePath}" alt="Gallery Image ${index}" loading="lazy">
+                <img src="${imagePath}" alt="Gallery Image ${index}">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus"></i>
                 </div>
             `;
-            galleryContainer.appendChild(galleryItem);
-            
+            slide.appendChild(galleryItem);
+            galleryContainer.appendChild(slide);
+            updateCarousel();
+
             // Lanjut ke indeks berikutnya
             checkAndLoadImage(index + 1);
         };
@@ -387,12 +438,75 @@
         img.onerror = function() {
             // Berhenti jika file tidak ditemukan
             if (index === 1) {
-                galleryContainer.innerHTML = '<p style="grid-column: 1/-1; color: #6b7280;">Belum ada foto di folder <strong>gallery/</strong>. Silakan tambahkan file 1.jpg, 2.jpg, dst.</p>';
+                galleryContainer.innerHTML = '<p style="width: 100%; color: #6b7280;">Belum ada foto di folder <strong>gallery/</strong>. Silakan tambahkan file 1.jpg, 2.jpg, dst.</p>';
+                document.getElementById('gallery-prev').hidden = true;
+                document.getElementById('gallery-next').hidden = true;
             }
         };
 
         img.src = imagePath;
     }
+
+    // Gallery Carousel Controls
+    const gallerySlideInterval = 3500; // ms antar geseran otomatis
+    let galleryIndex = 0;
+    let galleryTimer = null;
+
+    function galleryPerView() {
+        if (window.innerWidth <= 600) return 1;
+        if (window.innerWidth <= 992) return 2;
+        return 3;
+    }
+
+    function galleryMaxIndex() {
+        return Math.max(0, galleryContainer.children.length - galleryPerView());
+    }
+
+    function updateCarousel() {
+        const perView = galleryPerView();
+        galleryIndex = Math.min(galleryIndex, galleryMaxIndex());
+        galleryContainer.style.setProperty('--per-view', perView);
+        galleryContainer.style.transform = `translateX(-${galleryIndex * (100 / perView)}%)`;
+    }
+
+    function galleryNext() {
+        galleryIndex = galleryIndex >= galleryMaxIndex() ? 0 : galleryIndex + 1;
+        updateCarousel();
+    }
+
+    function galleryPrev() {
+        galleryIndex = galleryIndex <= 0 ? galleryMaxIndex() : galleryIndex - 1;
+        updateCarousel();
+    }
+
+    function startGalleryAuto() {
+        stopGalleryAuto();
+        galleryTimer = setInterval(galleryNext, gallerySlideInterval);
+    }
+
+    function stopGalleryAuto() {
+        clearInterval(galleryTimer);
+    }
+
+    document.getElementById('gallery-next').addEventListener('click', () => { galleryNext(); startGalleryAuto(); });
+    document.getElementById('gallery-prev').addEventListener('click', () => { galleryPrev(); startGalleryAuto(); });
+
+    const galleryCarousel = document.getElementById('gallery-carousel');
+    galleryCarousel.addEventListener('mouseenter', stopGalleryAuto);
+    galleryCarousel.addEventListener('mouseleave', startGalleryAuto);
+    window.addEventListener('resize', updateCarousel);
+
+    // Swipe di layar sentuh
+    let galleryTouchX = null;
+    galleryCarousel.addEventListener('touchstart', (e) => { galleryTouchX = e.touches[0].clientX; stopGalleryAuto(); }, { passive: true });
+    galleryCarousel.addEventListener('touchend', (e) => {
+        if (galleryTouchX !== null) {
+            const dx = e.changedTouches[0].clientX - galleryTouchX;
+            if (Math.abs(dx) > 40) { dx < 0 ? galleryNext() : galleryPrev(); }
+            galleryTouchX = null;
+        }
+        startGalleryAuto();
+    });
 
     // Lightbox Controls
     function openLightbox(src, caption) {
@@ -419,6 +533,7 @@
     // Start checking images from 1.jpg
     document.addEventListener('DOMContentLoaded', () => {
         checkAndLoadImage(1);
+        startGalleryAuto();
     });
 </script>
 <script src="script.js"></script>
