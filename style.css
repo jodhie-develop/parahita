@@ -741,3 +741,13 @@ img {
     max-width: 100%;
     height: auto; /* Memastikan semua gambar tidak penyet */
 }
+
+/* Tagline hero (kata kunci SEO di bawah H1) */
+.hero-tagline {
+    margin-top: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #003366;
+    max-width: 640px;
+    line-height: 1.5;
+}
