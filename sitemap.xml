@@ -28,4 +28,32 @@
     <image:image><image:loc>https://www.parahitaindonesia.com/gallery/4.jpg</image:loc></image:image>
     <image:image><image:loc>https://www.parahitaindonesia.com/gallery/5.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://www.parahitaindonesia.com/rempah</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://www.parahitaindonesia.com/images/rempan.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.parahitaindonesia.com/dolomit</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://www.parahitaindonesia.com/images/dolomit.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.parahitaindonesia.com/wood-chip</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://www.parahitaindonesia.com/images/woodchip.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.parahitaindonesia.com/marine-product</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://www.parahitaindonesia.com/images/marine_product.jpeg</image:loc></image:image>
+  </url>
 </urlset>
