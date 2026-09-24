@@ -361,8 +361,7 @@ nav {
     display: flex;
     align-items: center;
     overflow: hidden;
-    /* Ganti URL di bawah dengan gambar peta/logistik pilihanmu */
-    background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80');
+    background-image: url('gallery/Gudang%20parahita%205.JPG');
     background-size: cover;
     background-position: center;
 }
