@@ -37,6 +37,7 @@ Deployed on Vercel as a static site. `vercel.json` controls platform behavior:
 - **`robots.txt` / `sitemap.xml`** — keep `sitemap.xml`'s `<lastmod>` and per-page `<image:image>` list current when content or gallery images change.
 - **`images/`** — fixed, hand-referenced images used throughout the page (commodities, "why us", office photos).
 - **`gallery/`** — holds two naming conventions: sequentially-numbered `N.jpg` files (auto-loaded by `index.html`'s preview carousel) and arbitrarily-named files like `Gudang parahita N.JPG` (uppercase extension, contains spaces — reference as `%20`-encoded and case-exact, since Vercel's filesystem is case-sensitive). Every file here should have a corresponding hardcoded entry in `gallery.html` and `sitemap.xml`.
+- **`gallery/thumbs/`** — downscaled (max 800px, JPEG q78) copies of every file in `gallery/`, same filenames. Both the homepage carousel and `gallery.html`'s grid display these (fast to load); clicking a photo still opens the full-resolution original from `gallery/` in the lightbox (`openLightbox()`'s first argument is always the non-thumb path). **Whenever a photo is added to `gallery/`, generate a matching thumbnail into `gallery/thumbs/` (same filename) before wiring it into `index.html`/`gallery.html`** — there's no build step or script for this, it was done ad hoc via ImageMagick/PowerShell `System.Drawing`; a thumbnail-less photo will 404 in the grid.
 
 ## Notable non-obvious details
 

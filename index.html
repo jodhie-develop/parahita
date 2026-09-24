@@ -347,9 +347,11 @@
     const galleryContainer = document.getElementById('gallery-container');
 
     function checkAndLoadImage(index) {
+        // Thumbnail (ringan) untuk ditampilkan di carousel; file asli hanya dimuat saat lightbox dibuka
         const imagePath = `${galleryFolder}${index}.jpg`;
+        const thumbPath = `${galleryFolder}thumbs/${index}.jpg`;
         const img = new Image();
-        
+
         img.onload = function() {
             // Jika file gambar ditemukan/berhasil dimuat
             const slide = document.createElement('div');
@@ -360,7 +362,7 @@
             galleryItem.onclick = () => openLightbox(imagePath, `Dokumentasi PT Parahita Adhi Sakti - foto ${index}`);
 
             galleryItem.innerHTML = `
-                <img src="${imagePath}" alt="Dokumentasi kegiatan PT Parahita Adhi Sakti - foto ${index}" loading="lazy" width="800" height="600">
+                <img src="${thumbPath}" alt="Dokumentasi kegiatan PT Parahita Adhi Sakti - foto ${index}" loading="lazy" width="800" height="600">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus"></i>
                 </div>
@@ -382,7 +384,7 @@
             }
         };
 
-        img.src = imagePath;
+        img.src = thumbPath;
     }
 
     // Gallery Carousel Controls
