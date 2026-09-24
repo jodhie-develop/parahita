@@ -3,9 +3,25 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.parahitaindonesia.com/</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/5.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.parahitaindonesia.com/gallery</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/Gudang%20parahita%201.JPG</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/Gudang%20parahita%202.JPG</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/Gudang%20parahita%203.JPG</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/Gudang%20parahita%204.JPG</image:loc></image:image>
+    <image:image><image:loc>https://www.parahitaindonesia.com/gallery/Gudang%20parahita%205.JPG</image:loc></image:image>
     <image:image><image:loc>https://www.parahitaindonesia.com/gallery/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://www.parahitaindonesia.com/gallery/2.jpg</image:loc></image:image>
     <image:image><image:loc>https://www.parahitaindonesia.com/gallery/3.jpg</image:loc></image:image>

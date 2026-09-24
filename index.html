@@ -91,160 +91,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="apple-touch-icon" href="logo.png">
-    <style>
-        /* CSS Gallery Grid & Lightbox / Zoom Modal */
-        .gallery-section {
-            padding: 60px 20px;
-            background-color: #f9fafb;
-            text-align: center;
-        }
-
-        .gallery-section h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #1f2937;
-        }
-
-        .gallery-section h2 span {
-            color: #d97706;
-        }
-
-        /* Gallery Carousel */
-        .gallery-carousel {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .gallery-viewport {
-            overflow: hidden;
-        }
-
-        .gallery-grid {
-            display: flex;
-            transition: transform 0.6s ease;
-        }
-
-        .gallery-slide {
-            flex: 0 0 calc(100% / var(--per-view, 3));
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .gallery-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            width: 44px;
-            height: 44px;
-            border: none;
-            border-radius: 50%;
-            background: #ffffff;
-            color: #1f2937;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .gallery-arrow:hover {
-            background: #d97706;
-            color: #ffffff;
-        }
-
-        .gallery-arrow.prev { left: 0; }
-        .gallery-arrow.next { right: 0; }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            aspect-ratio: 4/3;
-            cursor: pointer;
-            background-color: #e5e7eb;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.08);
-            filter: brightness(0.9);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            color: #ffffff;
-            font-size: 1.5rem;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        /* Lightbox Modal */
-        .lightbox-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .lightbox-modal.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 85vh;
-            border-radius: 8px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-            object-fit: contain;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #ffffff;
-            font-size: 2.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .lightbox-close:hover {
-            color: #d97706;
-        }
-
-        .lightbox-caption {
-            position: absolute;
-            bottom: 25px;
-            color: #ffffff;
-            font-size: 1.1rem;
-            background: rgba(0,0,0,0.6);
-            padding: 8px 16px;
-            border-radius: 4px;
-        }
-    </style>
 </head>
 <body>
 
@@ -277,6 +123,12 @@
 
 <main>
 <section class="hero" id="about">
+    <div class="hero-bg-slider" id="hero-bg-slider">
+        <div class="hero-bg-slide active" style="background-image: url('gallery/Gudang%20parahita%201.JPG')"></div>
+        <div class="hero-bg-slide" style="background-image: url('gallery/Gudang%20parahita%205.JPG')"></div>
+        <div class="hero-bg-slide" style="background-image: url('gallery/1.jpg')"></div>
+    </div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
         <h1>Trading with Trust, Growing Together</h1>
         <p class="hero-tagline">Eksportir &amp; Trader Rempan/Rempah, Pupuk Dolomit, Wood Chip, dan Marine Product dari Indonesia</p>
@@ -421,6 +273,7 @@
         </div>
         <button class="gallery-arrow next" id="gallery-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
     </div>
+    <a href="gallery.html" class="gallery-cta">Lihat Semua Galeri</a>
 </section>
 
 <!-- Lightbox Zoom Modal -->
@@ -593,27 +446,7 @@
         startGalleryAuto();
     });
 
-    // Lightbox Controls
-    function openLightbox(src, caption) {
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxCaption = document.getElementById('lightbox-caption');
-        
-        lightboxImg.src = src;
-        lightboxCaption.innerText = caption;
-        lightbox.classList.add('active');
-    }
-
-    function closeLightbox() {
-        document.getElementById('lightbox').classList.remove('active');
-    }
-
-    // Close lightbox on clicking outside image
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-        if (e.target !== document.getElementById('lightbox-img')) {
-            closeLightbox();
-        }
-    });
+    // Lightbox Controls: lihat openLightbox()/closeLightbox() di script.js (dipakai bersama gallery.html)
 
     // Start checking images from 1.jpg
     document.addEventListener('DOMContentLoaded', () => {
